@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "bollard"
+version = "1.0.0"
+description = "Bollard, the control point for model calls."
+package-mode = true
+packages = [{ include = "gateway" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+alembic = ">=1.14"
+cryptography = ">=43"
+fastapi = ">=0.115"
+httpx = ">=0.27"
+psycopg = { version = ">=3.2", extras = ["binary"] }
+pydantic = ">=2.9"
+pyjwt = ">=2.9"
+redis = ">=5.0"
+websockets = ">=13"
+sqlalchemy = ">=2.0"
+uvicorn = { version = ">=0.32", extras = ["standard"] }
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8"
+
+[tool.poetry.scripts]
+gateway = "gateway.cli:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

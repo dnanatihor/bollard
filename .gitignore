@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Local database and encrypted provider secrets
+data/
+
+# Build outputs
+dist/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Tooling caches
+.cache/

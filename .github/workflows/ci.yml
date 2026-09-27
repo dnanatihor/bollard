@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: gateway
+          POSTGRES_PASSWORD: gateway
+          POSTGRES_DB: gateway
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U gateway -d gateway"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        run: pipx install poetry==2.4.1
+      - name: Install
+        working-directory: backend
+        run: poetry install --no-interaction --no-ansi
+      - name: Test on SQLite
+        working-directory: backend
+        run: poetry run pytest -q
+      - name: Test on PostgreSQL
+        working-directory: backend
+        env:
+          GATEWAY_TEST_DATABASE_URL: postgresql+psycopg://gateway:gateway@127.0.0.1:5432/gateway
+        run: poetry run pytest -q
+
+  console:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Build console
+        working-directory: frontend
+        run: npm ci && npm run build
