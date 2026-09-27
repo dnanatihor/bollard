@@ -1,3 +1,5 @@
+# Stored outside .github/workflows so GitHub Actions does not run it.
+# Move it back to .github/workflows/ci.yml when Actions billing is available.
 name: CI
 
 on:

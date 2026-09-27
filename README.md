@@ -1,6 +1,5 @@
 # Bollard
 
-[![CI](https://github.com/dnanatihor/bollard/actions/workflows/ci.yml/badge.svg)](https://github.com/dnanatihor/bollard/actions/workflows/ci.yml)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue)](LICENSE)
@@ -67,7 +66,7 @@ curl -sS http://127.0.0.1:8080/v1/chat/completions \
 poetry -C backend run pytest -q
 ```
 
-Tests use a temporary SQLite file. Set `GATEWAY_TEST_DATABASE_URL` only for a database you can wipe. Continuous integration runs the same suite on SQLite and PostgreSQL, then builds the console.
+Tests use a temporary SQLite file. Set `GATEWAY_TEST_DATABASE_URL` only for a database you can wipe. The PostgreSQL suite and `npm --prefix frontend run build` run on your machine. GitHub Actions is off.
 
 ## Layout
 
